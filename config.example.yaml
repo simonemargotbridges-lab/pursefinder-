@@ -1,0 +1,53 @@
+# Copy this to config.yaml and adjust. Secrets (API keys, phone-alert topic) go in
+# environment variables, not here -- see README.md.
+
+# Only listings at or under this price (USD) are checked.
+max_price: 500
+# Raise this (e.g. 50) to skip very cheap items, which are mostly accessories or fakes.
+min_price: 0
+
+# What to type into each site's search box. These are deliberately broad: the photos,
+# not the titles, decide whether it's the right bag, so a listing called just
+# "Chloe purse" or "leather padlock bag" still gets caught.
+# More queries = more listings checked = more API cost per round.
+queries:
+  - balenciaga bag
+  - balenciaga purse
+  - chloe bag
+  - chloe purse
+  - chloe leather bag
+  - padlock bag
+  - motorcycle bag leather
+  - vintage leather bag studs
+
+# Marketplaces to search. Remove a line, or add `enabled: false`, to turn one off.
+sources:
+  ebay: {}          # needs EBAY_CLIENT_ID / EBAY_CLIENT_SECRET (free, see README)
+  poshmark: {}
+  depop: {}
+  vinted: {}        # set base_url: https://www.vinted.co.uk for the UK site, etc.
+  mercari: {}       # the ones below need Playwright (see README)
+  thredup: {}
+  vestiaire: {}
+  therealreal: {}
+
+# Minutes between rounds of checking.
+interval_minutes: 10
+
+# How sure the AI must be (0-100) before alerting you.
+min_confidence: 60
+
+# Also alert on Balenciaga First / Part Time / Work / Day / Town etc. (same studs & tassels).
+include_other_balenciaga: false
+
+# Photos sent to the AI per listing (more = more accurate, more cost).
+images_per_listing: 3
+
+# Safety cap on how many listings get photo-checked per round.
+max_classifications_per_cycle: 150
+
+model: claude-opus-5
+effort: low
+
+# Where the seen-listings database and matches.html are kept.
+data_dir: data
